@@ -1,0 +1,255 @@
+Oke bos, ini udah aku perbaiki semua! Sekarang *semua tombol nyambung* dan bisa diklik semua, gak ada lagi yang mati.
+
+Copy semua kode di bawah ini, paste ke `htmledit.squarefree.com` kayak tadi, langsung bisa dicoba:
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Cake Siantar - Toko Kue Premium</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#FFF5F5;padding-bottom:90px;color:#4A2C2A}
+.header{background:#FFD6DE;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+.logo{display:flex;gap:10px;align-items:center;cursor:pointer}
+.logo span{font-size:32px}
+.logo h1{font-size:19px;color:#7A3B2E;line-height:1.1}
+.logo p{font-size:12px;color:#8A5A4E}
+.icons{font-size:22px;display:flex;gap:10px}
+.icon-btn{background:#fff;border:none;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer;position:relative}
+.badge{position:absolute;top:-4px;right:-4px;background:#E91E63;color:#fff;font-size:11px;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hero{margin:14px;border-radius:20px;overflow:hidden;position:relative;height:210px;cursor:pointer}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero-text{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}
+.hero-text h2{font-size:20px}
+.hero-text p{font-size:13px}
+.search{margin:0 14px;background:#FFF9E8;border-radius:30px;padding:12px 16px;display:flex;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.search input{border:none;outline:none;background:transparent;width:100%;font-size:14px}
+.section{padding:16px 14px 0}
+.section-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.section-top h3{font-size:18px}
+.section-top a{color:#E87A9A;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer}
+.categories{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.cat{min-width:78px;background:#FFF9E8;border-radius:14px;padding:12px 8px;text-align:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.05);cursor:pointer;border:2px solid transparent}
+.cat.active{background:#FFD6DE;border-color:#F48FB1}
+.cat div{font-size:24px;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.card{background:#fff;border-radius:16px;overflow:hidden;padding-bottom:12px;box-shadow:0 3px 10px rgba(0,0,0,.06);text-align:center}
+.card img{width:100%;height:130px;object-fit:cover;cursor:pointer}
+.card h4{font-size:13px;padding:8px 6px 2px;min-height:36px;cursor:pointer}
+.price{font-weight:800;color:#7A3B2E;margin:4px 0 8px}
+.btns{display:flex;gap:6px;justify-content:center;padding:0 8px}
+.btn{flex:1;border:none;padding:9px 4px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
+.btn-buy{background:#F48FB1;color:#fff}
+.btn-wa{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
+.promo{margin:16px 14px 0;background:#7A3B2E;color:#fff;border-radius:16px;padding:16px;text-align:center}
+.promo button{background:#FFD6DE;border:none;padding:10px 18px;border-radius:20px;font-weight:800;color:#7A3B2E;cursor:pointer;margin-top:8px}
+.footer{margin:16px 14px;background:#fff;border-radius:16px;padding:16px;text-align:center;font-size:13px;line-height:1.6;color:#777}
+.footer button{background:#F48FB1;color:#fff;border:none;padding:9px 16px;border-radius:20px;font-weight:700;margin:6px 3px;cursor:pointer}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0 14px;border-top:1px solid #eee;z-index:30}
+.bottom button{border:none;background:none;color:#999;text-align:center;font-size:11px;display:flex;flex-direction:column;gap:2px;cursor:pointer;align-items:center}
+.bottom button.active{color:#E87A9A;font-weight:700}
+.bottom span{font-size:22px}
+#toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;display:none;z-index:99}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:40}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:18px;max-height:85vh;overflow:auto;display:none;z-index:50}
+.sheet h3{margin-bottom:12px}
+.close{float:right;border:none;background:#eee;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px}
+.cart-item{display:flex;gap:10px;align-items:center;background:#FFF5F5;padding:10px;border-radius:12px;margin-bottom:10px}
+.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+.cart-item b{font-size:13px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:6px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer;font-weight:800}
+.checkout{width:100%;background:#25D366;color:#fff;border:none;padding:13px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;margin-top:10px}
+.empty{text-align:center;padding:20px;color:#999}
+.detail-img{width:100%;height:220px;object-fit:cover;border-radius:14px}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="header">
+ <div class="logo" onclick="goHome()"><span>🧁</span><div><h1>Sweet Cake Siantar</h1><p>Toko Kue Premium Siantar</p></div></div>
+ <div class="icons">
+ <button class="icon-btn" onclick="showNotif()">🔔<span class="badge" id="notifBadge">2</span></button>
+ <button class="icon-btn" onclick="openSheet('akunSheet')">👤</button>
+ </div>
+</div>
+
+<div class="hero" id="homeSection" onclick="openDetail(3)">
+ <img src="https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=800&q=80">
+ <div class="hero-text"><h2>Kue Ulang Tahun Spesial</h2><p>Tap untuk lihat detail • Rayakan momen manismu</p></div>
+</div>
+
+<div class="search">🔍 <input id="searchInput" placeholder="Cari kue favoritmu..." oninput="render()"></div>
+
+<div class="section">
+ <div class="section-top"><h3>Kategori</h3><a onclick="setCat('all')">Lihat Semua ></a></div>
+ <div class="categories" id="cats"></div>
+</div>
+
+<div class="section" id="katalogSection">
+ <div class="section-top"><h3>Katalog Kue</h3><span style="font-size:13px">🛒 <span id="cartCount">0</span> item • Rp <span id="cartTotalTop">0</span></span></div>
+ <div class="grid" id="grid"></div>
+ <p id="noResult" class="empty" style="display:none">Kue tidak ditemukan 😢<br><button onclick="resetFilter()" style="margin-top:8px;padding:8px 14px;border-radius:20px;border:none;background:#F48FB1;color:#fff;font-weight:700">Tampilkan Semua</button></p>
+</div>
+
+<div class="promo"><b>🎉 PROMO HARI INI</b><p>Beli 2 Brownies Gratis 1 Donat Glaze!</p><button onclick="claimPromo()">Klaim Promo</button></div>
+
+<div class="footer" id="kontakSection">
+ <b style="color:#4A2C2A">Sweet Cake Siantar</b><br>
+ Jl. Merdeka No. 12, Pematangsiantar<br>
+ Buka Setiap Hari 08.00 - 21.00 WIB<br>
+ WA: 0812-3456-7890<br>
+ <button onclick="orderWA('Halo kak, saya mau tanya-tanya dulu')">💬 Chat Admin</button>
+ <button onclick="openSheet('akunSheet')">👤 Akun Saya</button>
+</div>
+
+<nav class="bottom">
+ <button onclick="goHome()" id="navHome" class="active"><span>🏠</span>Home</button>
+ <button onclick="goKatalog()" id="navKatalog"><span>🎂</span>Katalog</button>
+ <button onclick="openCart()" id="navCart"><span>🛒</span>Keranjang (<span id="cartCount2">0</span>)</button>
+ <button onclick="openSheet('akunSheet')" id="navAkun"><span>👤</span>Akun</button>
+</nav>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- CART -->
+<div class="sheet" id="cartSheet">
+ <button class="close" onclick="closeAll()">✕</button>
+ <h3>🛒 Keranjang Kamu</h3>
+ <div id="cartList"></div>
+ <div id="cartFooter" style="display:none">
+ <p style="display:flex;justify-content:space-between;font-weight:800;margin:10px 0"><span>Total:</span><span>Rp <span id="cartTotal">0</span></span></p>
+ <button class="checkout" onclick="checkoutWA()">✅ Checkout via WhatsApp</button>
+ <button onclick="clearCart()" style="width:100%;background:none;border:none;color:#E91E63;padding:10px;cursor:pointer;font-weight:700">Hapus Semua</button>
+ </div>
+</div>
+
+<!-- DETAIL -->
+<div class="sheet" id="detailSheet">
+ <button class="close" onclick="closeAll()">✕</button>
+ <div id="detailContent"></div>
+</div>
+
+<!-- AKUN -->
+<div class="sheet" id="akunSheet">
+ <button class="close" onclick="closeAll()">✕</button>
+ <h3>👤 Akun Saya</h3>
+ <p style="background:#FFF5F5;padding:14px;border-radius:12px;line-height:1.7">Nama: Pelanggan Setia<br>Member: Gold 🥇<br>Poin: 250 Poin<br>Alamat: Pematangsiantar, Sumut</p>
+ <button class="checkout" style="background:#F48FB1" onclick="showToast('Riwayat pesanan: 3 pesanan selesai 🎉')">📦 Lihat Pesanan Saya</button>
+ <button class="checkout" style="background:#fff;color:#333;border:1px solid #ddd" onclick="showToast('Kamu berhasil logout')">🚪 Logout</button>
+</div>
+
+<!-- NOTIF -->
+<div class="sheet" id="notifSheet">
+ <button class="close" onclick="closeAll()">✕</button>
+ <h3>🔔 Notifikasi</h3>
+ <p style="background:#FFF5F5;padding:12px;border-radius:12px;margin-bottom:8px">🎉 Promo hari ini! Beli 2 gratis 1</p>
+ <p style="background:#FFF5F5;padding:12px;border-radius:12px">🍰 Kue Ulang Tahun Mawar Pink ready stock!</p>
+ <button class="checkout" style="background:#F48FB1" onclick="claimPromo()">Ambil Promo</button>
+</div>
+
+<script>
+const WA_NUMBER="6281234567890";
+const cakes=[
+ {id:0,name:"Bolu Pandan Lembut",price:35000,cat:"bolu",desc:"Bolu pandan super lembut, wangi pandan asli, cocok untuk keluarga.",img:"https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&q=80"},
+ {id:1,name:"Brownies Choco Fudgy",price:50000,cat:"brownies",desc:"Brownies coklat fudgy, lumer di mulut, topping choco chip.",img:"https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=600&q=80"},
+ {id:2,name:"Donat Glaze Strawberry",price:42000,cat:"donat",desc:"Donat empuk 4 pcs, glaze strawberry manis segar.",img:"https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80"},
+ {id:3,name:"Kue Ulang Tahun Mawar Pink",price:250000,cat:"ultah",desc:"Kue ultah 2 layer, dekor mawar pink, bisa request nama & ucapan.",img:"https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=600&q=80"},
+ {id:4,name:"Bolu Coklat Lumer",price:40000,cat:"bolu",desc:"Bolu coklat dengan lelehan coklat di tengahnya.",img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"},
+ {id:5,name:"Brownies Keju",price:55000,cat:"brownies",desc:"Brownies coklat + taburan keju melimpah.",img:"https://images.unsplash.com/photo-1618923850107-d1a234d7a73a?w=600&q=80"},
+];
+const catList=[{id:'all',label:'Semua',icon:'🍰'},{id:'bolu',label:'Bolu',icon:'🍰'},{id:'brownies',label:'Brownies',icon:'🍫'},{id:'donat',label:'Donat',icon:'🍩'},{id:'ultah',label:'Kue Ultah',icon:'🎂'}];
+let activeCat='all', cart={};
+function fmt(n){return n.toLocaleString('id-ID')}
+function showToast(msg){let t=document.getElementById('toast');t.innerText=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2000)}
+function renderCats(){
+ document.getElementById('cats').innerHTML=catList.map(c=>`<div class="cat ${c.id===activeCat?'active':''}" onclick="setCat('${c.id}')"><div>${c.icon}</div>${c.label}</div>`).join('');
+}
+function setCat(c){activeCat=c;renderCats();render();document.getElementById('katalogSection').scrollIntoView({behavior:'smooth'});setNav('navKatalog')}
+function resetFilter(){activeCat='all';document.getElementById('searchInput').value='';renderCats();render()}
+function render(){
+ renderCats();
+ const q=document.getElementById('searchInput').value.toLowerCase();
+ const list=cakes.filter(c=>(activeCat==='all'||c.cat===activeCat)&&c.name.toLowerCase().includes(q));
+ document.getElementById('noResult').style.display=list.length?'none':'block';
+ document.getElementById('grid').innerHTML=list.map(c=>`
+ <div class="card">
+ <img src="${c.img}" onclick="openDetail(${c.id})">
+ <h4 onclick="openDetail(${c.id})">${c.name}</h4>
+ <div class="price">Rp ${fmt(c.price)}</div>
+ <div class="btns">
+ <button class="btn btn-buy" onclick="addToCart(${c.id})">🛒 Beli</button>
+ <button class="btn btn-wa" onclick="orderWA('Halo kak, saya mau pesan: ${c.name} - Rp ${fmt(c.price)}')">WhatsApp</button>
+ </div>
+ </div>`).join('');
+ updateCartBadge();
+}
+function addToCart(id){cart[id]=(cart[id]||0)+1;updateCartBadge();showToast(cakes[id].name+' ditambah ke keranjang 🛒')}
+function updateCartBadge(){
+ let count=0,total=0;
+ for(let id in cart){count+=cart[id];total+=cart[id]*cakes[id].price}
+ document.getElementById('cartCount').innerText=count;
+ document.getElementById('cartCount2').innerText=count;
+ document.getElementById('cartTotalTop').innerText=fmt(total);
+ document.getElementById('cartTotal').innerText=fmt(total);
+}
+function changeQty(id,d){cart[id]+=d;if(cart[id]<=0) delete cart[id];openCart();updateCartBadge()}
+function clearCart(){cart={};openCart();updateCartBadge();showToast('Keranjang dikosongkan')}
+function openCart(){
+ updateCartBadge();
+ let list=document.getElementById('cartList');
+ let ids=Object.keys(cart);
+ document.getElementById('cartFooter').style.display=ids.length?'block':'none';
+ if(!ids.length){list.innerHTML='<p class="empty">Keranjang masih kosong 😢<br>Yuk pilih kue dulu!</p>'}
+ else{list.innerHTML=ids.map(id=>{let c=cakes[id];return `<div class="cart-item"><img src="${c.img}"><div style="flex:1"><b>${c.name}</b><div>Rp ${fmt(c.price)}</div><div class="qty"><button onclick="changeQty(${id},-1)">-</button><span>${cart[id]}</span><button onclick="changeQty(${id},1)">+</button></div></div><b>Rp ${fmt(c.price*cart[id])}</b></div>`}).join('')}
+ openSheet('cartSheet');setNav('navCart');
+}
+function openDetail(id){
+ let c=cakes[id];
+ document.getElementById('detailContent').innerHTML=`
+ <img class="detail-img" src="${c.img}">
+ <h3 style="margin:12px 0 4px">${c.name}</h3>
+ <p style="color:#E91E63;font-weight:800;font-size:18px">Rp ${fmt(c.price)}</p>
+ <p style="margin:10px 0;color:#666;line-height:1.6">${c.desc}</p>
+ <button class="checkout" style="background:#F48FB1" onclick="addToCart(${c.id});closeAll();openCart()">🛒 Tambah Keranjang</button>
+ <button class="checkout" onclick="orderWA('Halo kak, saya mau pesan: ${c.name}')">💬 Pesan via WhatsApp</button>`;
+ openSheet('detailSheet');
+}
+function openSheet(id){document.getElementById('overlay').style.display='block';document.getElementById(id).style.display='block'}
+function closeAll(){document.getElementById('overlay').style.display='none';document.querySelectorAll('.sheet').forEach(s=>s.style.display='none')}
+function setNav(id){document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function goHome(){closeAll();window.scrollTo({top:0,behavior:'smooth'});setNav('navHome')}
+function goKatalog(){document.getElementById('katalogSection').scrollIntoView({behavior:'smooth'});setNav('navKatalog')}
+function showNotif(){openSheet('notifSheet');document.getElementById('notifBadge').style.display='none'}
+function claimPromo(){closeAll();cart[1]=(cart[1]||0)+2;cart[2]=(cart[2]||0)+1;updateCartBadge();showToast('Promo diklaim! Cek keranjang 🎉');setTimeout(openCart,600)}
+function orderWA(text){window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text),'_blank')}
+function checkoutWA(){
+ let ids=Object.keys(cart);if(!ids.length){showToast('Keranjang kosong');return}
+ let msg='Halo kak, saya mau checkout:%0A';
+ ids.forEach(id=>{msg+=`- ${cakes[id].name} x ${cart[id]} = Rp ${fmt(cakes[id].price*cart[id])}%0A`});
+ let total=ids.reduce((s,id)=>s+cart[id]*cakes[id].price,0);
+ msg+=`Total: Rp ${fmt(total)}%0AAlamat: `;
+ window.open('https://wa.me/'+WA_NUMBER+'?text='+msg,'_blank');
+ showToast('Checkout dikirim ke WA ✅');
+}
+render();
+</script>
+</body>
+</html>
+
+*Yang udah nyambung sekarang:*
+- *Beli* → masuk keranjang, angka di atas & di bawah nambah
+- *Keranjang* → bisa tambah/kurang/hapus, total otomatis kehitung
+- *Checkout* → langsung kebuka WA dengan isi pesanan lengkap
+- *WhatsApp* per kue → WA-nya udah bawa nama kue + harga
+- *Klik foto / nama kue* → buka detail kue
+- *Kategori + Search* → filter beneran jalan
+- *Promo* → otomatis masukin 2 Brownies + 1 Donat ke keranjang
+- *Home / Katalog / Keranjang / Akun / Lonceng* → semua bisa diklik
+- *Akun* → bisa lihat pesanan, logout
+
+Coba dulu bos, kalo ada tombol yang masih gak jalan, screenshot-in ke aku ya!
